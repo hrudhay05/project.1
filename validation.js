@@ -3,156 +3,101 @@ function printError(Id, Msg) {
 }
 
 function validateForm() {
-
-    var name = document.Form.name.value;
-    var name1 = document.Form.name1.value;
-    var email = document.Form.email.value;
-    var mobile = document.Form.mobile.value;
+    var name = document.Form.name.value.trim();
+    var name1 = document.Form.name1.value.trim();
+    var email = document.Form.email.value.trim();
+    var mobile = document.Form.mobile.value.trim();
     var country = document.Form.country.value;
     var course = document.Form.course.value;
     var gender = document.Form.gender.value;
-    
 
-    var nameErr = nameErr1 = emailErr = mobileErr = countryErr = genderErr = true;
-    
+    var nameErr = false;
+    var name1Err = false;
+    var emailErr = false;
+    var mobileErr = false;
+    var countryErr = false;
+    var courseErr = false;
+    var genderErr = false;
 
-    if(name === "") {
+    if (name === "") {
         printError("nameErr", "Please enter your first name");
-        var elem = document.getElementById("name");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
+        nameErr = true;
     } else {
-        var regex = /^[a-zA-Z\s]+$/;                
-        if(regex.test(name) === false) {
+        var regex = /^[a-zA-Z\s]+$/;
+        if (!regex.test(name)) {
             printError("nameErr", "Please enter a valid first name");
-            var elem = document.getElementById("name");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
+            nameErr = true;
         } else {
             printError("nameErr", "");
-            nameErr = false;
-            var elem = document.getElementById("name");
-            elem.classList.add("input-1");
-            elem.classList.remove("input-2");
-
-            
         }
     }
-    
-    if(name1 === "") {
+
+    if (name1 === "") {
         printError("nameErr1", "Please enter your last name");
-        var elem = document.getElementById("name1");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
+        name1Err = true;
     } else {
-        var regex1 = /^[a-zA-Z\s]+$/;                
-        if(regex1.test(name1) === false) {
+        var regex = /^[a-zA-Z\s]+$/;
+        if (!regex.test(name1)) {
             printError("nameErr1", "Please enter a valid last name");
-            var elem = document.getElementById("name1");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
+            name1Err = true;
         } else {
             printError("nameErr1", "");
-            nameErr = false;
-            var elem = document.getElementById("name1");
-            elem.classList.add("input-1");
-            elem.classList.remove("input-2");
-
-            
         }
     }
 
-   
-    
-
-    if(email == "") {
+    if (email === "") {
         printError("emailErr", "Please enter your email address");
-         var elem = document.getElementById("email");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
+        emailErr = true;
     } else {
-        
         var regex = /^\S+@\S+\.\S+$/;
-        if(regex.test(email) === false) {
+        if (!regex.test(email)) {
             printError("emailErr", "Please enter a valid email address");
-            var elem = document.getElementById("email");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
-        } else{
+            emailErr = true;
+        } else {
             printError("emailErr", "");
-            emailErr = false;
-             var elem = document.getElementById("email");
-            elem.classList.add("input-1");
-            elem.classList.remove("input-2");
-
         }
     }
-    
- 
-    if(mobile == "") {
+
+    if (mobile === "") {
         printError("mobileErr", "Please enter your mobile number");
-        var elem = document.getElementById("mobile");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
+        mobileErr = true;
     } else {
         var regex = /^[1-9]\d{9}$/;
-        if(regex.test(mobile) === false) {
+        if (!regex.test(mobile)) {
             printError("mobileErr", "Please enter a valid 10 digit mobile number");
-            var elem = document.getElementById("mobile");
-            elem.classList.add("input-2");
-            elem.classList.remove("input-1");
-        } else{
+            mobileErr = true;
+        } else {
             printError("mobileErr", "");
-            mobileErr = false;
-            var elem = document.getElementById("mobile");
-            elem.classList.add("input-1");
-            elem.classList.remove("input-2");
         }
     }
-    
 
-    if(country == "Select") {
+    if (country === "Select") {
         printError("countryErr", "Please select your country");
-        var elem = document.getElementById("country");
-            elem.classList.add("input-4");
-            elem.classList.remove("input-3");
+        countryErr = true;
     } else {
         printError("countryErr", "");
-        countryErr = false;
-        var elem = document.getElementById("country");
-            elem.classList.add("input-3");
-            elem.classList.remove("input-4");
     }
 
-    if(course == "Select") {
+    if (course === "Select") {
         printError("courseErr", "Please select your course");
-        var elem = document.getElementById("course");
-            elem.classList.add("input-4");
-            elem.classList.remove("input-3");
+        courseErr = true;
     } else {
         printError("courseErr", "");
-        countryErr = false;
-        var elem = document.getElementById("course");
-            elem.classList.add("input-3");
-            elem.classList.remove("input-4");
     }
-    
 
-    if(gender == "") {
+    if (gender === "") {
         printError("genderErr", "Please select your gender");
-        var elem = document.getElementById("gender");
-            elem.classList.add("input-4");
-            elem.classList.remove("input-3");
+        genderErr = true;
     } else {
         printError("genderErr", "");
-        genderErr = false;
-        var elem = document.getElementById("gender");
-            elem.classList.add("input-3");
-            elem.classList.remove("input-4");
     }
-    
-    
-    if((nameErr|| nameErr1 || emailErr || mobileErr || countryErr || genderErr) == true) {
-       return false;
-    } 
-};
+
+    // Return true only if all validation flags are false
+    if (!nameErr && !name1Err && !emailErr && !mobileErr && !countryErr && !courseErr && !genderErr) {
+        // All validations passed, allow form submission
+        return true;
+    } else {
+        // Validation failed, prevent form submission
+        return false;
+    }
+}
