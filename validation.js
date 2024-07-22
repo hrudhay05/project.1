@@ -1,5 +1,5 @@
-function printError(Id, Msg) {
-    document.getElementById(Id).innerHTML = Msg;
+function printError(id, msg) {
+    document.getElementById(id).innerHTML = msg;
 }
 
 function validateForm() {
@@ -9,7 +9,7 @@ function validateForm() {
     var mobile = document.Form.mobile.value.trim();
     var country = document.Form.country.value;
     var course = document.Form.course.value;
-    var gender = document.Form.gender.value;
+    var gender = document.querySelector('input[name="gender"]:checked');
 
     var nameErr = false;
     var name1Err = false;
@@ -85,7 +85,7 @@ function validateForm() {
         printError("courseErr", "");
     }
 
-    if (gender === "") {
+    if (!gender) {
         printError("genderErr", "Please select your gender");
         genderErr = true;
     } else {
